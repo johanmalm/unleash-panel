@@ -10,9 +10,9 @@
 Server::Server()
 {
 	// Initiate Atoms
-	m_utf8_string =		XInternAtom(QX11Info::display(), "UTF8_STRING", False);
-	m_net_client_list =	XInternAtom(QX11Info::display(), "_NET_CLIENT_LIST", False);
-	m_net_wm_visible_name =	XInternAtom(QX11Info::display(), "_NET_WM_VISIBLE_NAME", False);
+	m_utf8_string         = XInternAtom(QX11Info::display(), "UTF8_STRING", False);
+	m_net_client_list     = XInternAtom(QX11Info::display(), "_NET_CLIENT_LIST", False);
+	m_net_wm_visible_name = XInternAtom(QX11Info::display(), "_NET_WM_VISIBLE_NAME", False);
 
 	get_client_list();
 }
@@ -24,10 +24,12 @@ Server::~Server()
 void Server::print_list()
 {
 	QString t, s;
+
 	for (int i=0; i < clients.value.size(); i++) {
 		t.setNum(clients.value.at(i), 16);
-		s = s + "[" + t + "] " + clients.name.at(i).mid(0,8) + "  ";
+		s = s + "[" + t + "]:" + clients.name.at(i).mid(0,4) + " ";
 	}
+
 	qDebug(s.toLatin1());
 }
 
@@ -95,3 +97,10 @@ int Server::get_client_list()
 	return 0;
 }
 
+int Server::clientListChanged(unsigned long atom_name)
+{
+	if (atom_name == m_net_client_list)
+		get_client_list();
+
+	return 0;
+}

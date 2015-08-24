@@ -23,7 +23,7 @@ int main(int argv, char **args)
 	Server server;
 
 	QObject::connect(&filter, &EventFilter::caughtEvent,
-			 &server, &Server::get_client_list);
+			 &server, &Server::clientListChanged);
 
 	Panel panel;    // this creates the QGraphicsView (and also the window)
 

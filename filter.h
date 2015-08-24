@@ -16,7 +16,7 @@ public:
 				       void *message, long *); Q_DECL_OVERRIDE
 
 signals:
-	void caughtEvent();
+	void caughtEvent(unsigned long atom_name);
 };
 
 #endif	// FILTER_H

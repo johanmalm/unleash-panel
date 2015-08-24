@@ -12,12 +12,13 @@ public:
 	~Server();
 	void print_list();
 	QString get_win_prop(unsigned long window, unsigned long atom);
+	int get_client_list();
 
 signals:
 	void clientListUpdated();
 
 public slots:
-	int get_client_list();
+	int clientListChanged(unsigned long atom_name);
 
 private:
 
