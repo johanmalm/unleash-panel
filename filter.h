@@ -13,7 +13,7 @@ public:
 	EventFilter();
 	~EventFilter();
 	virtual bool nativeEventFilter(const QByteArray &eventType,
-				       void *message, long *); Q_DECL_OVERRIDE
+				       void *message, long *) Q_DECL_OVERRIDE;
 
 signals:
 	void caughtEvent(unsigned long atom_name);
