@@ -84,8 +84,9 @@ int Server::get_client_list()
 	for (int i=0; i < clients.value.size(); i++) {
 		tmp = get_win_prop(clients.value.at(i), m_net_wm_visible_name);
 
-		if (tmp.contains("johan@arch")) tmp = "terminal";
+		if (tmp.contains("johan@a1")) tmp = "terminal";
 		if (tmp.contains("Firefox")) tmp = "firefox";
+		if (tmp.contains("NetSurf")) tmp = "netsurf";
 
 		clients.name.append(tmp);
 	}

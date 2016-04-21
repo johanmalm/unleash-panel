@@ -6,16 +6,29 @@
  */
 
 #include <QApplication>
+#include <QDebug>
+#include <QDesktopWidget>
+
 #include "globals.h"
 #include "server.h"
 #include "filter.h"
 #include "panel.h"
+
 
 int main(int argv, char **args)
 {
 	init_globals();
 
 	QApplication app(argv, args);
+
+	QDesktopWidget *desktop = app.desktop();
+//	qDebug() << "Width: " << desktop->screenGeometry(-1).width();
+//	qDebug() << "Height: " << desktop->screenGeometry(-1).height();
+
+	// GTK+ style creates a border around the window.
+	// Cannot find the stylesheet property associated with this,
+	// so force Fusion style to avoid the issue.
+	app.setStyle("Fusion");
 
 	EventFilter filter;
 	app.installNativeEventFilter(&filter);
@@ -25,10 +38,16 @@ int main(int argv, char **args)
 	QObject::connect(&filter, &EventFilter::caughtEvent,
 			 &server, &Server::clientListChanged);
 
-	Panel panel;    // this creates the QGraphicsView (and also the window)
+	// This creates the QGraphicsView (and also the window)
+	Panel panel;
 
-	panel.resize(g.panelWidth, g.panelHeight);
-	panel.move(0, g.screenHeight - g.panelHeight - 40);
+	// These are required to position the QGraphicsScene correctly.
+	// This is due to a hardcoded scene margin built into the qt5 libs.
+	// It is overcome here by position the window marginally outside the screen.
+	int horizontalMargin = 1;
+	int verticalMargin = 2;
+	panel.resize(g.panelWidth + horizontalMargin * 2, g.panelHeight + verticalMargin * 2);
+	panel.move(-horizontalMargin, g.screenHeight - g.panelHeight - verticalMargin);
 	panel.show();
 
 	QObject::connect(&server, &Server::clientListUpdated,
