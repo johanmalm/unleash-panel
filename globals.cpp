@@ -1,7 +1,9 @@
 #include "globals.h"
 #include <QDebug>
 
-Client clients;
+Client_t clients;
+
+QVector<Client*> master_list;
 
 Globals g;
 

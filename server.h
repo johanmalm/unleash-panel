@@ -2,6 +2,7 @@
 #define SERVER_H
 
 #include <QObject>
+#include <client.h>
 
 class Server : public QObject
 {
@@ -12,7 +13,8 @@ public:
 	~Server();
 	void print_list();
 	QString get_win_prop(unsigned long window, unsigned long atom);
-	int get_client_list();
+	QVector<unsigned long> get_client_list();
+	void sync_list();
 
 signals:
 	void clientListUpdated();
@@ -21,7 +23,6 @@ public slots:
 	int clientListChanged(unsigned long atom_name);
 
 private:
-
 	// X11 Atoms (initiated in constructor).
 	unsigned long m_utf8_string;
 	unsigned long m_net_client_list;

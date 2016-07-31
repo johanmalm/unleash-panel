@@ -1,5 +1,9 @@
 #include "panel.h"
 #include <QtWidgets>
+#include <QDebug>
+#include "client.h"
+#include "server.h"
+
 
 Panel::Panel(QWidget *parent): QGraphicsView(parent)
 {
@@ -38,10 +42,21 @@ void Panel::drawPanel()
 	p->setPos(0, 0);
 	scene.addItem(p);
 
-	for (int i=0; i < clients.value.size(); i++) {
+	// DockItem is defined in dock.cpp
+	int i = 0;
+	foreach (Client *c, master_list) {
 		DockItem *d = new DockItem(g.itemWidth, g.panelHeight - (2 * g.itemPadding),
-					   clients.name.at(i).toLatin1());
+					   c->getName().toLatin1());
 		d->setPos(g.itemPadding + (g.itemWidth + g.itemPadding) * i, g.itemPadding);
 		scene.addItem(d);
+		i++;
 	}
+
+	// NEW CODE ////////////////////////////////
+
+	foreach (Client *c, master_list) {
+		qDebug() << c->getWID();
+	}
+	
+	////////////////////////////////////////////
 }

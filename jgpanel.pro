@@ -10,7 +10,8 @@ HEADERS += \
 	filter.h \
 	panel.h \
 	splash.h \
-        dock.h
+        dock.h \
+	client.h
 
 SOURCES += \
 	main.cpp \
@@ -19,7 +20,8 @@ SOURCES += \
 	filter.cpp \
 	panel.cpp \
 	splash.cpp \
-        dock.cpp
+        dock.cpp \
+	client.cpp
 
 target.path = /usr/bin
 INSTALLS += target

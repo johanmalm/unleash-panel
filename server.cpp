@@ -2,10 +2,11 @@
 #include <QX11Info>
 #include "globals.h"
 #include "server.h"
+#include "client.h"
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xatom.h>
-
+#include <QDebug>
 
 Server::Server()
 {
@@ -14,7 +15,7 @@ Server::Server()
 	m_net_client_list     = XInternAtom(QX11Info::display(), "_NET_CLIENT_LIST", False);
 	m_net_wm_visible_name = XInternAtom(QX11Info::display(), "_NET_WM_VISIBLE_NAME", False);
 
-	get_client_list();
+	sync_list();
 }
 
 Server::~Server()
@@ -25,9 +26,9 @@ void Server::print_list()
 {
 	QString t, s;
 
-	for (int i=0; i < clients.value.size(); i++) {
-		t.setNum(clients.value.at(i), 16);
-		s = s + "[" + t + "]:" + clients.name.at(i).mid(0,4) + " ";
+	foreach (Client *c, master_list) {
+		t.setNum(c->getWID(), 16);
+		s = s + "[" + t + "]:" + c->getName().mid(0,4) + " ";
 	}
 
 	qDebug(s.toLatin1());
@@ -54,7 +55,7 @@ QString Server::get_win_prop(unsigned long window, unsigned long atom)
 	return value;
 }
 
-int Server::get_client_list()
+QVector<unsigned long> Server::get_client_list()
 {
 	unsigned long *data = 0;
 	unsigned long type_ret, num, bytes;
@@ -69,39 +70,55 @@ int Server::get_client_list()
 	if(status)
 		qDebug("Warning: get_client_list() returned error.");
 
+
+	QVector<unsigned long> list;
+	list.clear();		// FIXME: Is this needed?
+
 	if (data) {
-		clients.value.clear();
 		for(unsigned int i = 0; i < num; i++) {
-			clients.value.append(data[i]);
+			list.append(data[i]);
 		}
 	}
 	XFree(data);
 
-	// put the following in seperate function.
+	return list;
+}
+
+void Server::sync_list()
+{
+	QVector<unsigned long> new_list;
+
+	new_list = get_client_list();
+
+	foreach (Client *c, master_list)
+		delete c;
+	master_list.clear();
+
+	foreach (unsigned long new_item, new_list) {
+		Client *w = new Client;
+		w->setWID(new_item);
+		master_list.append(w);
+	}
 
 	QString tmp;
-	clients.name.clear();
-	for (int i=0; i < clients.value.size(); i++) {
-		tmp = get_win_prop(clients.value.at(i), m_net_wm_visible_name);
-
-		if (tmp.contains("johan@a1")) tmp = "terminal";
-		if (tmp.contains("Firefox")) tmp = "firefox";
-		if (tmp.contains("NetSurf")) tmp = "netsurf";
-
-		clients.name.append(tmp);
+	foreach (Client *c, master_list) {
+		tmp = get_win_prop(c->getWID(), m_net_wm_visible_name);
+//		if (tmp.contains("johan@a1")) tmp = "terminal";
+//		if (tmp.contains("Firefox")) tmp = "firefox";
+//		if (tmp.contains("NetSurf")) tmp = "netsurf";
+		c->setName(tmp);
 	}
 
 	emit clientListUpdated();
 
 	print_list();
-
-	return 0;
 }
+
 
 int Server::clientListChanged(unsigned long atom_name)
 {
 	if (atom_name == m_net_client_list)
-		get_client_list();
+		sync_list();
 
 	return 0;
 }

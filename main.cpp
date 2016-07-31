@@ -21,7 +21,7 @@ int main(int argv, char **args)
 
 	QApplication app(argv, args);
 
-	QDesktopWidget *desktop = app.desktop();
+//	QDesktopWidget *desktop = app.desktop();
 //	qDebug() << "Width: " << desktop->screenGeometry(-1).width();
 //	qDebug() << "Height: " << desktop->screenGeometry(-1).height();
 
