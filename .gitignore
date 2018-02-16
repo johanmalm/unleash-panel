@@ -3,3 +3,4 @@ Makefile
 jgpanel
 moc*
 x11_notes.txt
+.qmake.stash

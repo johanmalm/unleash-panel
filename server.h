@@ -26,7 +26,7 @@ private:
 	// X11 Atoms (initiated in constructor).
 	unsigned long m_utf8_string;
 	unsigned long m_net_client_list;
-	unsigned long m_net_wm_visible_name; 
+	unsigned long m_net_wm_name;
 };
 
 #endif	// SERVER_H

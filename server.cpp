@@ -13,7 +13,7 @@ Server::Server()
 	// Initiate Atoms
 	m_utf8_string         = XInternAtom(QX11Info::display(), "UTF8_STRING", False);
 	m_net_client_list     = XInternAtom(QX11Info::display(), "_NET_CLIENT_LIST", False);
-	m_net_wm_visible_name = XInternAtom(QX11Info::display(), "_NET_WM_VISIBLE_NAME", False);
+	m_net_wm_name = XInternAtom(QX11Info::display(), "_NET_WM_NAME", False);
 
 	sync_list();
 }
@@ -70,7 +70,6 @@ QVector<unsigned long> Server::get_client_list()
 	if(status)
 		qDebug("Warning: get_client_list() returned error.");
 
-
 	QVector<unsigned long> list;
 	list.clear();		// FIXME: Is this needed?
 
@@ -102,13 +101,9 @@ void Server::sync_list()
 
 	QString tmp;
 	foreach (Client *c, master_list) {
-		tmp = get_win_prop(c->getWID(), m_net_wm_visible_name);
-//		if (tmp.contains("johan@a1")) tmp = "terminal";
-//		if (tmp.contains("Firefox")) tmp = "firefox";
-//		if (tmp.contains("NetSurf")) tmp = "netsurf";
+		tmp = get_win_prop(c->getWID(), m_net_wm_name);
 		c->setName(tmp);
 	}
-
 	emit clientListUpdated();
 
 	print_list();
@@ -119,6 +114,5 @@ int Server::clientListChanged(unsigned long atom_name)
 {
 	if (atom_name == m_net_client_list)
 		sync_list();
-
 	return 0;
 }
