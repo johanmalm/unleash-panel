@@ -1,32 +1,43 @@
-Introduction
-~~~~~~~~~~~~
-jgpanel is inspired by tint2 and written in qt5 from scratch
+# unleash-panel
 
-At this stage, it's completely experimental.
+## Aims
 
-jgpanel is written with the following aims:
-  - Be a stand-alone panel
-  - Keep feature-set small and simple
-  - Work with linux and openbox
-  - Contain similar settings to tint2 (e.g. padding, transparency)
+- Be simple
+- Be stand-alone
+- Work with X11 and Wayland
+- Keep feature-set small
 
-Compilation
-~~~~~~~~~~~
-	qmake
-	make
+## Architecture
 
+- C++
+- Qt5
+- Supports X11 events
 
-Implementation
-~~~~~~~~~~~~~~
+## Dependencies
 
-main.cpp   - Parses command line and sets global variables
-panel.cpp  - QGraphicsView which inits scene+view and calls QGraphicsItems
-server.cpp - X11 functions. E.g. get_client_list()
-filter.cpp - Native event filter that emits signal on window event.
+### Debian
 
-QGraphicsItems:
-splash.cpp - panel background
-task.cpp   - individual dock items (i.e. each running app)
-launch.cpp -
-clock.cpp  -
+- qt5-default
+- libqt5x11extras5-dev
+
+###
+
+- qt5-base
+- qt5-x11extras
+
+## Build
+
+    qmake
+    make
+
+## Implementation
+
+Core panel:
+
+- panel.cpp - create main window and control panel components
+- background.cpp - draw panel background
+
+Panel components:
+
+- task.cpp - taskbar
 

@@ -1,27 +1,20 @@
 TARGET = jgpanel
 QT += widgets x11extras
 LIBS += -lX11 -lxcb
-
 CONFIG += silent
+INCLUDEPATH += include
+DESTDIR = build
+OBJECTS_DIR = build/.obj
+MOC_DIR = build/.moc
 
-HEADERS += \
-	globals.h \
-	server.h \
-	filter.h \
-	panel.h \
-	splash.h \
-        dock.h \
-	client.h
+HEADERS += $${INCLUDEPATH}/panel.h $${INCLUDEPATH}/filter.h
 
 SOURCES += \
 	main.cpp \
 	globals.cpp \
-	server.cpp \
 	filter.cpp \
 	panel.cpp \
 	splash.cpp \
-        dock.cpp \
-	client.cpp
+	dock.cpp \
+	x11.cpp
 
-target.path = /usr/bin
-INSTALLS += target

@@ -1,6 +1,5 @@
 Makefile
 *.o
 jgpanel
-moc*
-x11_notes.txt
+build/
 .qmake.stash
