@@ -1,4 +1,4 @@
-TARGET = jgpanel
+TARGET = unleash-panel
 QT += widgets x11extras
 LIBS += -lX11 -lxcb
 CONFIG += silent
@@ -14,7 +14,7 @@ SOURCES += \
 	globals.cpp \
 	filter.cpp \
 	panel.cpp \
-	splash.cpp \
-	dock.cpp \
+	background.cpp \
+	task.cpp \
 	x11.cpp
 

@@ -1,9 +1,10 @@
+#include "task.h"
+
 #include <QFont>
 #include <QGraphicsScene>
 #include <QPainter>
 #include <QStyleOption>
 
-#include "dock.h"
 #include "x11.h"
 #include "globals.h"
 

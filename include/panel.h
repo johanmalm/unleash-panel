@@ -1,8 +1,8 @@
 #pragma once
 
-#include "dock.h"
+#include "task.h"
 #include "globals.h"
-#include "splash.h"
+#include "background.h"
 #include <QGraphicsView>
 
 class Panel : public QGraphicsView

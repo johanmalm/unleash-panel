@@ -1,4 +1,4 @@
-#include "splash.h"
+#include "background.h"
 
 #include "globals.h"
 #include <QGraphicsScene>
