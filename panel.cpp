@@ -4,6 +4,7 @@
 
 #include "panel.h"
 #include "x11.h"
+#include "settings.h"
 
 Panel::Panel(QWidget *parent) : QGraphicsView(parent)
 {
@@ -18,12 +19,6 @@ Panel::Panel(QWidget *parent) : QGraphicsView(parent)
     setStyleSheet("background-color: transparent;");
     setAttribute(Qt::WA_TranslucentBackground);
     setAttribute(Qt::WA_X11NetWmWindowTypeDock, true);
-
-    /* TODO: Use height and width */
-    QScreen *screen = QGuiApplication::primaryScreen();
-    QRect screenGeometry = screen->geometry();
-    int height = screenGeometry.height();
-    qDebug("height=%i", height);
 
     /*
      * Turn off window borders. Note that
@@ -57,8 +52,8 @@ void Panel::updateClientPositions()
     int i = 0;
     foreach (QGraphicsItem *item, items()) {
         if (TaskItem *p = qgraphicsitem_cast<TaskItem *>(item)) {
-            p->setPos(g.itemPadding + (g.itemWidth + g.itemPadding) * i,
-                      g.itemPadding);
+            p->setPos(g.panelPaddingX + (g.taskWidth + g.taskSpacing) * i,
+                      g.panelPaddingY);
             i++;
         }
     }

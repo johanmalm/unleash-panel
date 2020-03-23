@@ -1,7 +1,7 @@
 #pragma once
 
 #include "task.h"
-#include "globals.h"
+#include "settings.h"
 #include "background.h"
 #include <QGraphicsView>
 

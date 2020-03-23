@@ -6,13 +6,13 @@
 #include <QStyleOption>
 
 #include "x11.h"
-#include "globals.h"
+#include "settings.h"
 
 TaskItem::TaskItem(unsigned long wid)
 {
     m_wid = wid;
-    m_width = g.itemWidth;
-    m_height = g.panelHeight - (2 * g.itemPadding);
+    m_width = g.taskWidth;
+    m_height = g.panelHeight - (2 * g.panelPaddingY);
     m_clientName = x11WinName(m_wid);
     m_hover = false;
 
@@ -30,7 +30,10 @@ void TaskItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
                      QWidget *)
 {
     painter->setRenderHint(QPainter::Antialiasing, true);
-    painter->setPen(Qt::NoPen);
+    if (m_hover)
+        painter->setPen(QColor(255, 0, 34, 200));
+    else
+        painter->setPen(Qt::NoPen);
     painter->setBrush(QColor(255, 194, 34, 200)); //#ffbb22
     painter->drawRect(0, 0, m_width, m_height);
 

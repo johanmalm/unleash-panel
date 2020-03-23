@@ -9,14 +9,16 @@
 #include <QScreen>
 
 #include "filter.h"
-#include "globals.h"
+#include "settings.h"
 #include "panel.h"
+#include "settings.h"
 
 int main(int argv, char **args)
 {
-    init_globals();
-
     QApplication app(argv, args);
+    QCoreApplication::setOrganizationName("unleash-panel");
+    QCoreApplication::setApplicationName("unleash");
+    initSettings();
 
     /*
      * GTK+ style creates a border around the window. I cannot find the

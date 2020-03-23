@@ -1,6 +1,6 @@
 #include "background.h"
 
-#include "globals.h"
+#include "settings.h"
 #include <QGraphicsScene>
 #include <QPainter>
 #include <QPen>
