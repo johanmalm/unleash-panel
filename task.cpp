@@ -23,29 +23,34 @@ TaskItem::~TaskItem() {}
 
 QRectF TaskItem::boundingRect() const
 {
-    return QRectF(0, 0, m_width - 2, m_height - 2);
+    return QRectF(0, 0, m_width, m_height);
 }
 
 void TaskItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
                      QWidget *)
 {
     painter->setRenderHint(QPainter::Antialiasing, true);
-    if (m_hover)
-        painter->setPen(QColor(255, 0, 34, 200));
-    else
-        painter->setPen(Qt::NoPen);
-    painter->setBrush(QColor(255, 194, 34, 200)); //#ffbb22
-    painter->drawRect(0, 0, m_width, m_height);
 
-    int padding = 3;
-    QFont font("Ubuntu Condensed", 10);
+    /* background */
+    painter->setBrush(g.taskColorBackground);
+    painter->setPen(g.taskColorBackground);
+    painter->drawRect(boundingRect());
+
+    /* hover */
+    if (m_hover) {
+        painter->setBrush(g.taskColorHoverBackground);
+        painter->drawRect(boundingRect());
+    }
+
+    /* text */
+    QFont font(g.fontFamily, g.fontSize);
     painter->setFont(font);
-    painter->setPen(QColor(255, 255, 255, 255));
-
-    // The -2 for the height is because otherwise the font sits to low
-    // Interestingly cairo needs the same adjustment.
-    QRect rect(padding, 0, m_width - padding * 2, m_height - 2);
-    painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter, m_clientName);
+    painter->setPen(g.taskColorFont);
+    QRect rect(g.taskPaddingX, 0, m_width - g.taskPaddingX * 2, m_height);
+    QFontMetrics metrics(font);
+    QString elidedText =
+            metrics.elidedText(m_clientName, Qt::ElideRight, rect.width());
+    painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter, elidedText);
 }
 
 void TaskItem::hoverEnterEvent(QGraphicsSceneHoverEvent *)

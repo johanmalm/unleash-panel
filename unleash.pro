@@ -2,7 +2,9 @@ TARGET = unleash-panel
 QT += widgets x11extras
 LIBS += -lX11 -lxcb
 CONFIG += silent
-QMAKE_CXXFLAGS += -std=c++11
+QMAKE_CXXFLAGS += -std=c++11 -Wextra
+CFLAGS  += -Wno-unused-parameter
+CFLAGS  += -DVERSION='"$(VER)"'
 INCLUDEPATH += include
 DESTDIR = build
 OBJECTS_DIR = build/.obj

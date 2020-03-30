@@ -18,17 +18,17 @@ QRectF BackgroundItem::boundingRect() const
 void BackgroundItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
                            QWidget *)
 {
-    /*
-     * Panel border (Pen) and fill (Brush)
-     * TODO: use painter->setPen(Qt::NoPen) for no border
-     */
-    QPen pen(QColor(255, 0, 0, 255));
+    /* Panel background */
+    painter->setBrush(g.panelColorBackground);
+    painter->setPen(g.panelColorBackground);
+    painter->drawRect(boundingRect());
+
+    /* Panel border */
+    QPen pen(g.panelColorBorder);
     pen.setStyle(Qt::SolidLine);
     pen.setWidth(1.0);
-    pen.setBrush(QColor(255, 255, 255, 128));
-
     painter->setPen(pen);
-    painter->setBrush(QColor(0, 0, 0, 80));
+    painter->setBrush(Qt::NoBrush);
     painter->drawRect(boundingRect());
 }
 

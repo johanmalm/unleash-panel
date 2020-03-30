@@ -77,7 +77,7 @@ void Panel::updatePanel()
     QVector<unsigned long> serverClients = x11ClientList();
     QVector<unsigned long> sceneClients;
     foreach (QGraphicsItem *item, items()) {
-        if (TaskItem *p = dynamic_cast<TaskItem *>(item))
+        if (TaskItem *p = qgraphicsitem_cast<TaskItem *>(item))
             sceneClients.append(p->m_wid);
     }
 
@@ -110,8 +110,6 @@ void Panel::reactToX11Event(unsigned long atom_name)
 
 void Panel::removeTask(unsigned long wid)
 {
-    QTextStream out(stdout);
-
     foreach (QGraphicsItem *item, items()) {
         if (TaskItem *p = qgraphicsitem_cast<TaskItem *>(item)) {
             if (p->m_wid != wid)

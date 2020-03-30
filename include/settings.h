@@ -4,19 +4,27 @@
 
 struct Globals
 {
-    /* Based on system */
+    /* Obtained from system */
     int screenWidth;
     int screenHeight;
 
     /* Based on config file */
+    QString fontFamily;
+    int fontSize;
+
     int panelWidth;
     int panelHeight;
     int panelPaddingX;
     int panelPaddingY;
+    QColor panelColorBackground;
+    QColor panelColorBorder;
 
     int taskWidth;
     int taskSpacing;
-    QColor taskColorFill;
+    int taskPaddingX;
+    QColor taskColorBackground;
+    QColor taskColorHoverBackground;
+    QColor taskColorFont;
 };
 
 extern Globals g;
