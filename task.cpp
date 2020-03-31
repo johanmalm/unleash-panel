@@ -26,8 +26,7 @@ QRectF TaskItem::boundingRect() const
     return QRectF(0, 0, m_width, m_height);
 }
 
-void TaskItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
-                     QWidget *)
+void TaskItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setRenderHint(QPainter::Antialiasing, true);
 
@@ -48,8 +47,7 @@ void TaskItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
     painter->setPen(g.taskColorFont);
     QRect rect(g.taskPaddingX, 0, m_width - g.taskPaddingX * 2, m_height);
     QFontMetrics metrics(font);
-    QString elidedText =
-            metrics.elidedText(m_clientName, Qt::ElideRight, rect.width());
+    QString elidedText = metrics.elidedText(m_clientName, Qt::ElideRight, rect.width());
     painter->drawText(rect, Qt::AlignLeft | Qt::AlignVCenter, elidedText);
 }
 

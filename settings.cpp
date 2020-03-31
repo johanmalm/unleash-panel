@@ -58,16 +58,14 @@ void initSettings(void)
     g.panelHeight = initInt(&s, "panel/height", "30");
     g.panelPaddingX = initInt(&s, "panel/padding-x", "2");
     g.panelPaddingY = initInt(&s, "panel/padding-y", "2");
-    g.panelColorBackground =
-            initColor(&s, "panel/color-background", "#ff111111");
+    g.panelColorBackground = initColor(&s, "panel/color-background", "#ff111111");
     g.panelColorBorder = initColor(&s, "panel/color-border", "#00000000");
 
     g.taskWidth = initInt(&s, "task/width", "120");
     g.taskSpacing = initInt(&s, "task/spacing", "1");
     g.taskPaddingX = initInt(&s, "task/padding-x", "10");
     g.taskColorBackground = initColor(&s, "task/color-background", "#00000000");
-    g.taskColorHoverBackground =
-            initColor(&s, "task/color-hover-background", "#18aaaaaa");
+    g.taskColorHoverBackground = initColor(&s, "task/color-hover-background", "#18aaaaaa");
     g.taskColorFont = initColor(&s, "task/color-font", "#ffeeeeee");
 
     //    qDebug() << "taskColorHoverBackground=" <<

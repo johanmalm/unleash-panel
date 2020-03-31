@@ -10,11 +10,11 @@ DESTDIR = build
 OBJECTS_DIR = build/.obj
 MOC_DIR = build/.moc
 
-HEADERS += $${INCLUDEPATH}/panel.h $${INCLUDEPATH}/filter.h
+HEADERS += $${INCLUDEPATH}/panel.h $${INCLUDEPATH}/x11-event-filter.h
 
 SOURCES += \
 	background.cpp \
-	filter.cpp \
+	x11-event-filter.cpp \
 	main.cpp \
 	panel.cpp \
 	settings.cpp \

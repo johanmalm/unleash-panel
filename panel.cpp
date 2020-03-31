@@ -25,8 +25,8 @@ Panel::Panel(QWidget *parent) : QGraphicsView(parent)
      * setStyleSheet("border-style: none; border-width: 0 px;")
      * achieves nothing here.
      */
-    setWindowFlags(Qt::Window | Qt::FramelessWindowHint
-                   | Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint);
+    setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::X11BypassWindowManagerHint
+                   | Qt::WindowStaysOnTopHint);
 
     /*
      * The QGraphicsScene has hard-coded margins built into the qt5 libraries,
@@ -52,8 +52,7 @@ void Panel::updateClientPositions()
     int i = 0;
     foreach (QGraphicsItem *item, items()) {
         if (TaskItem *p = qgraphicsitem_cast<TaskItem *>(item)) {
-            p->setPos(g.panelPaddingX + (g.taskWidth + g.taskSpacing) * i,
-                      g.panelPaddingY);
+            p->setPos(g.panelPaddingX + (g.taskWidth + g.taskSpacing) * i, g.panelPaddingY);
             i++;
         }
     }

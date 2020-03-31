@@ -15,8 +15,7 @@ QRectF BackgroundItem::boundingRect() const
     return QRectF(0.5, 0.5, g.panelWidth - 1.0, g.panelHeight - 1.0);
 }
 
-void BackgroundItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
-                           QWidget *)
+void BackgroundItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     /* Panel background */
     painter->setBrush(g.panelColorBackground);

@@ -8,7 +8,7 @@
 #include <QDebug>
 #include <QScreen>
 
-#include "filter.h"
+#include "x11-event-filter.h"
 #include "settings.h"
 #include "panel.h"
 #include "settings.h"
@@ -34,8 +34,7 @@ int main(int argv, char **args)
     Panel panel;
     panel.show();
 
-    QObject::connect(&filter, &EventFilter::caughtEvent, &panel,
-                     &Panel::reactToX11Event);
+    QObject::connect(&filter, &EventFilter::caughtEvent, &panel, &Panel::reactToX11Event);
 
     return app.exec();
 }

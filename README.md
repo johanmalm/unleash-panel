@@ -11,19 +11,12 @@
 
 - C++
 - Qt5
-- Supports X11 events
 
 ## Dependencies
 
-### Debian
+<b>Debian</b> qt5-default, libqt5x11extras5-dev
 
-- qt5-default
-- libqt5x11extras5-dev
-
-###
-
-- qt5-base
-- qt5-x11extras
+<b>Arch</b> qt5-base, qt5-x11extras
 
 ## Build
 
@@ -32,12 +25,9 @@
 
 ## Implementation
 
-Core panel:
-
-- panel.cpp - create main window and control panel components
-- background.cpp - draw panel background
-
-Panel components:
-
-- task.cpp - taskbar
+| File           | Purpose                                         |
+|----------------|-------------------------------------------------|
+| panel.cpp      | Create main window and control panel components |
+| background.cpp | Draw panel background                           |
+| task.cpp       | Draw taskbar tasks                              |
 
